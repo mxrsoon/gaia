@@ -32,7 +32,7 @@ import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.Font
 
 /**
- * Defines theming for components of the Multi design system in this hierarchy.
+ * Defines theming for components of the Gaia design system in this hierarchy.
  *
  * @param colorScheme A complete definition of the color theme for this hierarchy
  * @param typography A set of text styles to be used as this hierarchy's typography system
