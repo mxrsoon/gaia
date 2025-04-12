@@ -1,30 +1,37 @@
 package com.mxrsoon.gaia.components.header
 
 import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.foundation.Image
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.WindowInsetsSides
 import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.only
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.safeDrawing
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.ColorFilter
-import androidx.compose.ui.input.nestedscroll.NestedScrollConnection
 import androidx.compose.ui.unit.dp
 import com.mxrsoon.gaia.components.icon.Icon
 import com.mxrsoon.gaia.components.icon.IconButton
 import com.mxrsoon.gaia.components.text.Text
 import com.mxrsoon.gaia.resources.Res
+import com.mxrsoon.gaia.resources.account_circle_24px
 import com.mxrsoon.gaia.resources.arrow_back_ios_new_24px
 import com.mxrsoon.gaia.resources.close_24px
+import com.mxrsoon.gaia.resources.filter_alt_24px
+import com.mxrsoon.gaia.resources.menu_24px
 import com.mxrsoon.gaia.theme.GaiaTheme
 import com.mxrsoon.gaia.theme.darkColorScheme
 import org.jetbrains.compose.resources.painterResource
@@ -35,28 +42,25 @@ fun NavigationHeader(
     title: String,
     modifier: Modifier = Modifier,
     showDivider: Boolean = false,
-    showBackButton: Boolean = false,
-    showCloseButton: Boolean = false,
+    navigationButton: (@Composable () -> Unit)? = null,
+    actions: (@Composable RowScope.() -> Unit)? = null,
+    windowInsets: WindowInsets = NavigationHeaderDefaults.windowInsets
 ) {
     Box(modifier) {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
                 .defaultMinSize(minHeight = NavigationHeaderDefaults.MinHeight)
-                .padding(horizontal = 12.dp, vertical = 8.dp),
-            horizontalArrangement = Arrangement.Start,
+                .windowInsetsPadding(windowInsets)
+                .padding(
+                    horizontal = NavigationHeaderDefaults.HorizontalContentPadding,
+                    vertical = NavigationHeaderDefaults.VerticalContentPadding
+                ),
+            horizontalArrangement = Arrangement.spacedBy(NavigationHeaderDefaults.Spacing),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            if (showBackButton) {
-                IconButton(
-                    modifier = Modifier.padding(end = 8.dp),
-                    onClick = {}
-                ) {
-                    Icon(painterResource(Res.drawable.arrow_back_ios_new_24px), null)
-                }
-            } else {
-                Spacer(Modifier.width(12.dp))
-            }
+            navigationButton?.invoke()
+                ?: Spacer(Modifier.width(NavigationHeaderDefaults.ExtraHorizontalPadding))
 
             Text(
                 text = title,
@@ -65,19 +69,15 @@ fun NavigationHeader(
 
             Spacer(Modifier.weight(1f))
 
-            if (showCloseButton) {
-                IconButton(
-                    modifier = Modifier.padding(start = 8.dp),
-                    onClick = {}
-                ) {
-                    Icon(painterResource(Res.drawable.close_24px), null)
-                }
-            }
+            actions?.invoke(this@Row)
+                ?: Spacer(Modifier.width(NavigationHeaderDefaults.ExtraHorizontalPadding))
         }
 
         AnimatedVisibility(
             modifier = Modifier.align(Alignment.BottomCenter),
-            visible = showDivider
+            visible = showDivider,
+            enter = fadeIn(),
+            exit = fadeOut()
         ) {
             Box(
                 modifier = Modifier
@@ -89,9 +89,44 @@ fun NavigationHeader(
     }
 }
 
+@Composable
+fun NavigationHeader(
+    title: String,
+    modifier: Modifier = Modifier,
+    showDivider: Boolean = false,
+    showBackButton: Boolean = false,
+    onBackButtonClick: (() -> Unit)? = null,
+    showCloseButton: Boolean = false,
+    onCloseButtonClick: (() -> Unit)? = null
+) {
+    val backButton: (@Composable () -> Unit)? = if (showBackButton) {
+        @Composable {
+            IconButton(onClick = onBackButtonClick ?: {}) {
+                Icon(painterResource(Res.drawable.arrow_back_ios_new_24px), null)
+            }
+        }
+    } else null
+
+    val closeButton: (@Composable RowScope.() -> Unit)? = if (showCloseButton) {
+        @Composable {
+            IconButton(onClick = onCloseButtonClick ?: {}) {
+                Icon(painterResource(Res.drawable.close_24px), null)
+            }
+        }
+    } else null
+
+    NavigationHeader(
+        title = title,
+        modifier = modifier,
+        showDivider = showDivider,
+        navigationButton = backButton,
+        actions = closeButton
+    )
+}
+
 @Preview
 @Composable
-fun NavigationHeaderPreview() {
+private fun NavigationHeaderPreview() {
     GaiaTheme(colorScheme = darkColorScheme()) {
         Box(Modifier.background(GaiaTheme.colorScheme.background)) {
             NavigationHeader(
@@ -104,7 +139,7 @@ fun NavigationHeaderPreview() {
 
 @Preview
 @Composable
-fun NavigationHeaderDividerPreview() {
+private fun NavigationHeaderDividerPreview() {
     GaiaTheme(colorScheme = darkColorScheme()) {
         Box(Modifier.background(GaiaTheme.colorScheme.background)) {
             NavigationHeader(
@@ -117,7 +152,7 @@ fun NavigationHeaderDividerPreview() {
 
 @Preview
 @Composable
-fun NavigationHeaderBackPreview() {
+private fun NavigationHeaderBackPreview() {
     GaiaTheme(colorScheme = darkColorScheme()) {
         Box(Modifier.background(GaiaTheme.colorScheme.background)) {
             NavigationHeader(
@@ -131,7 +166,7 @@ fun NavigationHeaderBackPreview() {
 
 @Preview
 @Composable
-fun NavigationHeaderBackDividerPreview() {
+private fun NavigationHeaderBackDividerPreview() {
     GaiaTheme(colorScheme = darkColorScheme()) {
         Box(Modifier.background(GaiaTheme.colorScheme.background)) {
             NavigationHeader(
@@ -145,7 +180,7 @@ fun NavigationHeaderBackDividerPreview() {
 
 @Preview
 @Composable
-fun NavigationHeaderClosePreview() {
+private fun NavigationHeaderClosePreview() {
     GaiaTheme(colorScheme = darkColorScheme()) {
         Box(Modifier.background(GaiaTheme.colorScheme.background)) {
             NavigationHeader(
@@ -159,7 +194,7 @@ fun NavigationHeaderClosePreview() {
 
 @Preview
 @Composable
-fun NavigationHeaderCloseDividerPreview() {
+private fun NavigationHeaderCloseDividerPreview() {
     GaiaTheme(colorScheme = darkColorScheme()) {
         Box(Modifier.background(GaiaTheme.colorScheme.background)) {
             NavigationHeader(
@@ -173,7 +208,7 @@ fun NavigationHeaderCloseDividerPreview() {
 
 @Preview
 @Composable
-fun NavigationHeaderBackClosePreview() {
+private fun NavigationHeaderBackClosePreview() {
     GaiaTheme(colorScheme = darkColorScheme()) {
         Box(Modifier.background(GaiaTheme.colorScheme.background)) {
             NavigationHeader(
@@ -188,7 +223,7 @@ fun NavigationHeaderBackClosePreview() {
 
 @Preview
 @Composable
-fun NavigationHeaderBackCloseDividerPreview() {
+private fun NavigationHeaderBackCloseDividerPreview() {
     GaiaTheme(colorScheme = darkColorScheme()) {
         Box(Modifier.background(GaiaTheme.colorScheme.background)) {
             NavigationHeader(
@@ -196,6 +231,33 @@ fun NavigationHeaderBackCloseDividerPreview() {
                 showDivider = true,
                 showBackButton = true,
                 showCloseButton = true
+            )
+        }
+    }
+}
+
+@Preview
+@Composable
+private fun NavigationHeaderCustomButtonsPreview() {
+    GaiaTheme(colorScheme = darkColorScheme()) {
+        Box(Modifier.background(GaiaTheme.colorScheme.background)) {
+            NavigationHeader(
+                title = "Title",
+                showDivider = false,
+                navigationButton = {
+                    IconButton(onClick = {}) {
+                        Icon(painterResource(Res.drawable.menu_24px), null)
+                    }
+                },
+                actions = {
+                    IconButton(onClick = {}) {
+                        Icon(painterResource(Res.drawable.filter_alt_24px), null)
+                    }
+
+                    IconButton(onClick = {}) {
+                        Icon(painterResource(Res.drawable.account_circle_24px), null)
+                    }
+                }
             )
         }
     }
@@ -209,10 +271,38 @@ object NavigationHeaderDefaults {
     /**
      * The default min height applied for headers.
      */
-    val MinHeight = 64.dp
+    internal val MinHeight = 64.dp
 
     /**
      * The height of the divider below the header.
      */
-    val DividerHeight = 1.dp
+    internal val DividerHeight = 1.dp
+
+    /**
+     * The default spacing applied between elements of the header.
+     */
+    internal val Spacing = 8.dp
+
+    /**
+     * Vertical padding applied around elements of the header.
+     */
+    internal val VerticalContentPadding = 8.dp
+
+    /**
+     * Horizontal padding applied around elements of the header.
+     */
+    internal val HorizontalContentPadding = 12.dp
+
+    /**
+     * Extra horizontal padding applied around elements when no buttons are present in a side of
+     * the header.
+     */
+    internal val ExtraHorizontalPadding = 4.dp
+
+    /**
+     * Recommended insets to be used and consumed by the navigation header.
+     */
+    val windowInsets: WindowInsets
+        @Composable
+        get() = WindowInsets.safeDrawing.only(WindowInsetsSides.Horizontal + WindowInsetsSides.Top)
 }

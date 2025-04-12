@@ -1,5 +1,8 @@
 package com.mxrsoon.gaia.sample
 
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.background
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Box
@@ -17,6 +20,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.mxrsoon.gaia.components.button.Button
+import com.mxrsoon.gaia.components.button.ButtonDefaults
+import com.mxrsoon.gaia.components.button.FixedButtonLayout
 import com.mxrsoon.gaia.components.header.NavigationHeader
 import com.mxrsoon.gaia.components.header.NavigationHeaderDefaults
 import com.mxrsoon.gaia.components.text.Text
@@ -37,8 +42,7 @@ fun App() {
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .background(GaiaTheme.colorScheme.background)
-                .safeDrawingPadding(),
+                .background(GaiaTheme.colorScheme.background),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             val listState = rememberLazyListState()
@@ -46,7 +50,7 @@ fun App() {
             NavigationHeader(
                 modifier = Modifier.fillMaxWidth(),
                 title = "Sample",
-                showDivider = listState.firstVisibleItemScrollOffset != 0,
+                showDivider = listState.canScrollBackward,
                 showBackButton = true
             )
 
@@ -65,18 +69,24 @@ fun App() {
                 }
             }
 
-            Box(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(NavigationHeaderDefaults.DividerHeight)
-                    .background(GaiaTheme.colorScheme.outlineVariant)
-            )
-
-            Button(
-                modifier = Modifier.fillMaxWidth().padding(24.dp),
-                onClick = {}
+            FixedButtonLayout(
+                modifier = Modifier.fillMaxWidth(),
+                showDivider = listState.canScrollForward
             ) {
-                Text("Continue")
+                Button(
+                    modifier = Modifier.fillMaxWidth(),
+                    onClick = {},
+                    colors = ButtonDefaults.secondaryButtonColors()
+                ) {
+                    Text("Clear")
+                }
+
+                Button(
+                    modifier = Modifier.fillMaxWidth(),
+                    onClick = {}
+                ) {
+                    Text("Continue")
+                }
             }
         }
     }
