@@ -12,8 +12,8 @@ object DefaultLightColorTokens {
 	val OnPrimary = Color(0xFFFFFFFF)
 	val Secondary = Color(0xFF83D5C4)
 	val OnSecondary = Color(0xFF005046)
-	val Outline = Color(0xFFAFBDB8)
-	val OutlineVariant = Color(0xFFC5CDD3)
+	val Outline = Color(0xFFCCD0CD)
+	val OutlineVariant = Color(0xFFE6EBE7)
 }
 
 object DefaultDarkColorTokens {
@@ -26,6 +26,6 @@ object DefaultDarkColorTokens {
 	val OnPrimary = Color(0xFF00382F)
 	val Secondary = Color(0xFF005045)
 	val OnSecondary = Color(0xFF77F8DF)
-	val Outline = Color(0xFF4B5753)
-	val OutlineVariant = Color(0xFF3E4240)
+	val Outline = Color(0xFF525C58)
+	val OutlineVariant = Color(0xFF323836)
 }

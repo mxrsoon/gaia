@@ -25,12 +25,10 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.semantics.Role
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.mxrsoon.gaia.components.text.Text
-import com.mxrsoon.gaia.theme.LocalContentColor
 import com.mxrsoon.gaia.theme.GaiaTheme
+import com.mxrsoon.gaia.theme.LocalContentColor
 import com.mxrsoon.gaia.theme.ProvideTextStyle
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
@@ -69,7 +67,7 @@ fun Button(
 				.padding(contentPadding),
 			contentAlignment = Alignment.Center
 		) {
-			ProvideTextStyle(value = GaiaTheme.typography.labelLarge.copy(fontSize = 14.sp, fontWeight = FontWeight.Medium)) {
+			ProvideTextStyle(value = GaiaTheme.typography.labelLarge) {
 				Row(
 					horizontalArrangement = Arrangement.Center,
 					verticalAlignment = Alignment.CenterVertically,
@@ -194,10 +192,23 @@ data class ButtonColors(
 
 @Preview
 @Composable
-fun ButtonPreview() {
+fun PrimaryButtonPreview() {
 	GaiaTheme {
 		Button(onClick = {}) {
-			Text("Hello, world!")
+			Text("Primary button")
+		}
+	}
+}
+
+@Preview
+@Composable
+fun SecondaryButtonPreview() {
+	GaiaTheme {
+		Button(
+			onClick = {},
+			colors = ButtonDefaults.secondaryButtonColors()
+		) {
+			Text("Secondary button")
 		}
 	}
 }
