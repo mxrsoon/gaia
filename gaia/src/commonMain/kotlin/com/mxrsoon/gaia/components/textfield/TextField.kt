@@ -3,20 +3,31 @@ package com.mxrsoon.gaia.components.textfield
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.background
+import androidx.compose.foundation.border
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.offset
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.mxrsoon.gaia.components.text.Text
 import com.mxrsoon.gaia.theme.GaiaTheme
-import com.mxrsoon.gaia.components.icon.Icon
+import com.mxrsoon.gaia.theme.darkColorScheme
+import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
 fun TextField(
@@ -24,13 +35,12 @@ fun TextField(
     onValueChange: (TextFieldValue) -> Unit,
     modifier: Modifier = Modifier,
     placeholder: String = "",
-    isError: Boolean = false,
-    isFocused: Boolean = false,
     leadingIcon: (@Composable (() -> Unit))? = null,
     trailingIcon: (@Composable (() -> Unit))? = null
 ) {
+    var isFocused by remember { mutableStateOf(false) }
+
     val borderColor = when {
-        isError -> GaiaTheme.colorScheme.error
         isFocused -> GaiaTheme.colorScheme.primary
         else -> GaiaTheme.colorScheme.outline
     }
@@ -76,6 +86,7 @@ fun TextField(
             )
 
             BasicTextField(
+                modifier = Modifier.onFocusChanged { isFocused = it.isFocused },
                 value = value,
                 onValueChange = onValueChange,
                 textStyle = GaiaTheme.typography.bodyMedium.copy(color = GaiaTheme.colorScheme.onBackground)
@@ -87,5 +98,17 @@ fun TextField(
                 it()
             }
         }
+    }
+}
+
+@Preview
+@Composable
+private fun TextFieldEmptyDarkPreview() {
+    GaiaTheme(colorScheme = darkColorScheme()) {
+        TextField(
+            value = TextFieldValue(""),
+            onValueChange = {},
+            placeholder = "Name"
+        )
     }
 }
