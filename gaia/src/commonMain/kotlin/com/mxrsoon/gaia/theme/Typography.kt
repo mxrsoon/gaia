@@ -3,7 +3,6 @@ package com.mxrsoon.gaia.theme
 import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import com.mxrsoon.gaia.theme.tokens.TypographyTokens
 
@@ -53,44 +52,44 @@ import com.mxrsoon.gaia.theme.tokens.TypographyTokens
  */
 @Immutable
 data class Typography(
-	val displayLarge: TextStyle = TypographyTokens.DisplayLarge,
-	val displayMedium: TextStyle = TypographyTokens.DisplayMedium,
-	val displaySmall: TextStyle = TypographyTokens.DisplaySmall,
-	val headlineLarge: TextStyle = TypographyTokens.HeadlineLarge,
-	val headlineMedium: TextStyle = TypographyTokens.HeadlineMedium,
-	val headlineSmall: TextStyle = TypographyTokens.HeadlineSmall,
-	val titleLarge: TextStyle = TypographyTokens.TitleLarge,
-	val titleMedium: TextStyle = TypographyTokens.TitleMedium,
-	val titleSmall: TextStyle = TypographyTokens.TitleSmall,
-	val bodyLarge: TextStyle = TypographyTokens.BodyLarge,
-	val bodyMedium: TextStyle = TypographyTokens.BodyMedium,
-	val bodySmall: TextStyle = TypographyTokens.BodySmall,
-	val labelLarge: TextStyle = TypographyTokens.LabelLarge,
-	val labelMedium: TextStyle = TypographyTokens.LabelMedium,
-	val labelSmall: TextStyle = TypographyTokens.LabelSmall,
+    val displayLarge: TextStyle = TypographyTokens.DisplayLarge,
+    val displayMedium: TextStyle = TypographyTokens.DisplayMedium,
+    val displaySmall: TextStyle = TypographyTokens.DisplaySmall,
+    val headlineLarge: TextStyle = TypographyTokens.HeadlineLarge,
+    val headlineMedium: TextStyle = TypographyTokens.HeadlineMedium,
+    val headlineSmall: TextStyle = TypographyTokens.HeadlineSmall,
+    val titleLarge: TextStyle = TypographyTokens.TitleLarge,
+    val titleMedium: TextStyle = TypographyTokens.TitleMedium,
+    val titleSmall: TextStyle = TypographyTokens.TitleSmall,
+    val bodyLarge: TextStyle = TypographyTokens.BodyLarge,
+    val bodyMedium: TextStyle = TypographyTokens.BodyMedium,
+    val bodySmall: TextStyle = TypographyTokens.BodySmall,
+    val labelLarge: TextStyle = TypographyTokens.LabelLarge,
+    val labelMedium: TextStyle = TypographyTokens.LabelMedium,
+    val labelSmall: TextStyle = TypographyTokens.LabelSmall,
 ) {
 
-	/**
-	 * Returns a copy of this [Typography], replacing the font family of all styles with
-	 * [fontFamily].
-	 */
-	fun withDefaultFontFamily(fontFamily: FontFamily): Typography = this.copy(
-		displayLarge = displayLarge.copy(fontFamily = fontFamily),
-		displayMedium = displayMedium.copy(fontFamily = fontFamily),
-		displaySmall = displaySmall.copy(fontFamily = fontFamily),
-		headlineLarge = headlineLarge.copy(fontFamily = fontFamily),
-		headlineMedium = headlineMedium.copy(fontFamily = fontFamily),
-		headlineSmall = headlineSmall.copy(fontFamily = fontFamily),
-		titleLarge = titleLarge.copy(fontFamily = fontFamily),
-		titleMedium = titleMedium.copy(fontFamily = fontFamily),
-		titleSmall = titleSmall.copy(fontFamily = fontFamily),
-		bodyLarge = bodyLarge.copy(fontFamily = fontFamily),
-		bodyMedium = bodyMedium.copy(fontFamily = fontFamily),
-		bodySmall = bodySmall.copy(fontFamily = fontFamily),
-		labelLarge = labelLarge.copy(fontFamily = fontFamily),
-		labelMedium = labelMedium.copy(fontFamily = fontFamily),
-		labelSmall = labelSmall.copy(fontFamily = fontFamily)
-	)
+    /**
+     * Returns a copy of this [Typography], replacing the font family of all styles with
+     * [fontFamily].
+     */
+    fun withDefaultFontFamily(fontFamily: FontFamily): Typography = this.copy(
+        displayLarge = displayLarge.copy(fontFamily = fontFamily),
+        displayMedium = displayMedium.copy(fontFamily = fontFamily),
+        displaySmall = displaySmall.copy(fontFamily = fontFamily),
+        headlineLarge = headlineLarge.copy(fontFamily = fontFamily),
+        headlineMedium = headlineMedium.copy(fontFamily = fontFamily),
+        headlineSmall = headlineSmall.copy(fontFamily = fontFamily),
+        titleLarge = titleLarge.copy(fontFamily = fontFamily),
+        titleMedium = titleMedium.copy(fontFamily = fontFamily),
+        titleSmall = titleSmall.copy(fontFamily = fontFamily),
+        bodyLarge = bodyLarge.copy(fontFamily = fontFamily),
+        bodyMedium = bodyMedium.copy(fontFamily = fontFamily),
+        bodySmall = bodySmall.copy(fontFamily = fontFamily),
+        labelLarge = labelLarge.copy(fontFamily = fontFamily),
+        labelMedium = labelMedium.copy(fontFamily = fontFamily),
+        labelSmall = labelSmall.copy(fontFamily = fontFamily)
+    )
 }
 
 val LocalTypography = staticCompositionLocalOf { Typography() }

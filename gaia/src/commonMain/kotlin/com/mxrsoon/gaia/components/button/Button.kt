@@ -36,48 +36,48 @@ import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
 fun Button(
-	onClick: () -> Unit,
-	modifier: Modifier = Modifier,
-	enabled: Boolean = true,
-	shape: Shape = ButtonDefaults.shape,
-	colors: ButtonColors = ButtonDefaults.buttonColors(),
-	border: BorderStroke? = null,
-	contentPadding: PaddingValues = ButtonDefaults.ContentPadding,
-	interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
-	content: @Composable RowScope.() -> Unit
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier,
+    enabled: Boolean = true,
+    shape: Shape = ButtonDefaults.shape,
+    colors: ButtonColors = ButtonDefaults.buttonColors(),
+    border: BorderStroke? = null,
+    contentPadding: PaddingValues = ButtonDefaults.ContentPadding,
+    interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
+    content: @Composable RowScope.() -> Unit
 ) {
-	val containerColor = colors.containerColor(enabled).value
-	val contentColor = colors.contentColor(enabled).value
+    val containerColor = colors.containerColor(enabled).value
+    val contentColor = colors.contentColor(enabled).value
 
-	CompositionLocalProvider(LocalContentColor provides contentColor) {
-		Box(
-			modifier = modifier
-				.defaultMinSize(
-					minWidth = ButtonDefaults.MinWidth,
-					minHeight = ButtonDefaults.MinHeight
-				)
-				.clip(shape)
-				.clickable(
-					onClick = onClick,
-					enabled = enabled,
-					role = Role.Button,
-					interactionSource = interactionSource,
-					indication = null
-				)
-				.then(if (border != null) Modifier.border(border, shape) else Modifier)
-				.background(containerColor, shape)
-				.padding(contentPadding),
-			contentAlignment = Alignment.Center
-		) {
-			ProvideTextStyle(value = GaiaTheme.typography.labelLarge) {
-				Row(
-					horizontalArrangement = Arrangement.Center,
-					verticalAlignment = Alignment.CenterVertically,
-					content = content
-				)
-			}
-		}
-	}
+    CompositionLocalProvider(LocalContentColor provides contentColor) {
+        Box(
+            modifier = modifier
+                .defaultMinSize(
+                    minWidth = ButtonDefaults.MinWidth,
+                    minHeight = ButtonDefaults.MinHeight
+                )
+                .clip(shape)
+                .clickable(
+                    onClick = onClick,
+                    enabled = enabled,
+                    role = Role.Button,
+                    interactionSource = interactionSource,
+                    indication = null
+                )
+                .then(if (border != null) Modifier.border(border, shape) else Modifier)
+                .background(containerColor, shape)
+                .padding(contentPadding),
+            contentAlignment = Alignment.Center
+        ) {
+            ProvideTextStyle(value = GaiaTheme.typography.labelLarge) {
+                Row(
+                    horizontalArrangement = Arrangement.Center,
+                    verticalAlignment = Alignment.CenterVertically,
+                    content = content
+                )
+            }
+        }
+    }
 }
 
 /**
@@ -85,82 +85,82 @@ fun Button(
  */
 object ButtonDefaults {
 
-	private val HorizontalPadding = 16.dp
-	private val VerticalPadding = 12.dp
+    private val HorizontalPadding = 16.dp
+    private val VerticalPadding = 12.dp
 
-	private const val DisabledContainerOpacity = 0.12f
-	private const val DisabledContentOpacity = 0.38f
+    private const val DisabledContainerOpacity = 0.12f
+    private const val DisabledContentOpacity = 0.38f
 
-	/**
-	 * The default content padding used by [Button].
-	 */
-	val ContentPadding = PaddingValues(
-		start = HorizontalPadding,
-		top = VerticalPadding,
-		end = HorizontalPadding,
-		bottom = VerticalPadding
-	)
+    /**
+     * The default content padding used by [Button].
+     */
+    val ContentPadding = PaddingValues(
+        start = HorizontalPadding,
+        top = VerticalPadding,
+        end = HorizontalPadding,
+        bottom = VerticalPadding
+    )
 
-	/**
-	 * The default min width applied for all buttons. Note that you can override it by applying
-	 * Modifier.widthIn directly on the button composable.
-	 */
-	val MinWidth = 58.dp
+    /**
+     * The default min width applied for all buttons. Note that you can override it by applying
+     * Modifier.widthIn directly on the button composable.
+     */
+    val MinWidth = 58.dp
 
-	/**
-	 * The default min height applied for all buttons. Note that you can override it by applying
-	 * Modifier.heightIn directly on the button composable.
-	 */
-	val MinHeight = 48.dp
+    /**
+     * The default min height applied for all buttons. Note that you can override it by applying
+     * Modifier.heightIn directly on the button composable.
+     */
+    val MinHeight = 48.dp
 
-	/**
-	 * Default shape for a button.
-	 */
-	val shape: Shape @Composable get() = RoundedCornerShape(8.dp)
+    /**
+     * Default shape for a button.
+     */
+    val shape: Shape @Composable get() = RoundedCornerShape(8.dp)
 
-	/**
-	 * Creates a [ButtonColors] that represents the default container and content colors used in a
-	 * [Button].
-	 *
-	 * @param containerColor the container color of this [Button] when enabled.
-	 * @param contentColor the content color of this [Button] when enabled.
-	 * @param disabledContainerColor the container color of this [Button] when not enabled.
-	 * @param disabledContentColor the content color of this [Button] when not enabled.
-	 */
-	@Composable
-	fun buttonColors(
-		containerColor: Color = GaiaTheme.colorScheme.primary,
-		contentColor: Color = GaiaTheme.colorScheme.onPrimary,
-		disabledContainerColor: Color = GaiaTheme.colorScheme.onSurface.copy(alpha = DisabledContainerOpacity),
-		disabledContentColor: Color = GaiaTheme.colorScheme.onSurface.copy(alpha = DisabledContentOpacity),
-	): ButtonColors = ButtonColors(
-		containerColor = containerColor,
-		contentColor = contentColor,
-		disabledContainerColor = disabledContainerColor,
-		disabledContentColor = disabledContentColor
-	)
+    /**
+     * Creates a [ButtonColors] that represents the default container and content colors used in a
+     * [Button].
+     *
+     * @param containerColor the container color of this [Button] when enabled.
+     * @param contentColor the content color of this [Button] when enabled.
+     * @param disabledContainerColor the container color of this [Button] when not enabled.
+     * @param disabledContentColor the content color of this [Button] when not enabled.
+     */
+    @Composable
+    fun buttonColors(
+        containerColor: Color = GaiaTheme.colorScheme.primary,
+        contentColor: Color = GaiaTheme.colorScheme.onPrimary,
+        disabledContainerColor: Color = GaiaTheme.colorScheme.onSurface.copy(alpha = DisabledContainerOpacity),
+        disabledContentColor: Color = GaiaTheme.colorScheme.onSurface.copy(alpha = DisabledContentOpacity),
+    ): ButtonColors = ButtonColors(
+        containerColor = containerColor,
+        contentColor = contentColor,
+        disabledContainerColor = disabledContainerColor,
+        disabledContentColor = disabledContentColor
+    )
 
-	/**
-	 * Creates a [ButtonColors] that represents the secondary container and content colors used in a
-	 * [Button].
-	 *
-	 * @param containerColor the container color of this [Button] when enabled.
-	 * @param contentColor the content color of this [Button] when enabled.
-	 * @param disabledContainerColor the container color of this [Button] when not enabled.
-	 * @param disabledContentColor the content color of this [Button] when not enabled.
-	 */
-	@Composable
-	fun secondaryButtonColors(
-		containerColor: Color = GaiaTheme.colorScheme.secondary,
-		contentColor: Color = GaiaTheme.colorScheme.onSecondary,
-		disabledContainerColor: Color = GaiaTheme.colorScheme.onSurface.copy(alpha = DisabledContainerOpacity),
-		disabledContentColor: Color = GaiaTheme.colorScheme.onSurface.copy(alpha = DisabledContentOpacity),
-	): ButtonColors = ButtonColors(
-		containerColor = containerColor,
-		contentColor = contentColor,
-		disabledContainerColor = disabledContainerColor,
-		disabledContentColor = disabledContentColor
-	)
+    /**
+     * Creates a [ButtonColors] that represents the secondary container and content colors used in a
+     * [Button].
+     *
+     * @param containerColor the container color of this [Button] when enabled.
+     * @param contentColor the content color of this [Button] when enabled.
+     * @param disabledContainerColor the container color of this [Button] when not enabled.
+     * @param disabledContentColor the content color of this [Button] when not enabled.
+     */
+    @Composable
+    fun secondaryButtonColors(
+        containerColor: Color = GaiaTheme.colorScheme.secondary,
+        contentColor: Color = GaiaTheme.colorScheme.onSecondary,
+        disabledContainerColor: Color = GaiaTheme.colorScheme.onSurface.copy(alpha = DisabledContainerOpacity),
+        disabledContentColor: Color = GaiaTheme.colorScheme.onSurface.copy(alpha = DisabledContentOpacity),
+    ): ButtonColors = ButtonColors(
+        containerColor = containerColor,
+        contentColor = contentColor,
+        disabledContainerColor = disabledContainerColor,
+        disabledContentColor = disabledContentColor
+    )
 }
 
 /**
@@ -170,94 +170,94 @@ object ButtonDefaults {
  */
 @Immutable
 data class ButtonColors(
-	private val containerColor: Color,
-	private val contentColor: Color,
-	private val disabledContainerColor: Color,
-	private val disabledContentColor: Color
+    private val containerColor: Color,
+    private val contentColor: Color,
+    private val disabledContainerColor: Color,
+    private val disabledContentColor: Color
 ) {
-	/**
-	 * Represents the container color for this button, depending on whether the button is [enabled].
-	 */
-	@Composable
-	internal fun containerColor(enabled: Boolean): State<Color> {
-		return rememberUpdatedState(if (enabled) containerColor else disabledContainerColor)
-	}
+    /**
+     * Represents the container color for this button, depending on whether the button is [enabled].
+     */
+    @Composable
+    internal fun containerColor(enabled: Boolean): State<Color> {
+        return rememberUpdatedState(if (enabled) containerColor else disabledContainerColor)
+    }
 
-	/**
-	 * Represents the content color for this button, depending on whether the button is [enabled].
-	 */
-	@Composable
-	internal fun contentColor(enabled: Boolean): State<Color> {
-		return rememberUpdatedState(if (enabled) contentColor else disabledContentColor)
-	}
+    /**
+     * Represents the content color for this button, depending on whether the button is [enabled].
+     */
+    @Composable
+    internal fun contentColor(enabled: Boolean): State<Color> {
+        return rememberUpdatedState(if (enabled) contentColor else disabledContentColor)
+    }
 }
 
 @Preview
 @Composable
 fun PrimaryButtonDarkPreview() {
-	GaiaTheme(colorScheme = darkColorScheme()) {
-		Box(
-			modifier = Modifier
-				.background(GaiaTheme.colorScheme.background)
-				.padding(24.dp)
-		) {
-			Button(onClick = {}) {
-				Text("Primary button")
-			}
-		}
-	}
+    GaiaTheme(colorScheme = darkColorScheme()) {
+        Box(
+            modifier = Modifier
+                .background(GaiaTheme.colorScheme.background)
+                .padding(24.dp)
+        ) {
+            Button(onClick = {}) {
+                Text("Primary button")
+            }
+        }
+    }
 }
 
 @Preview
 @Composable
 fun SecondaryButtonDarkPreview() {
-	GaiaTheme(colorScheme = darkColorScheme()) {
-		Box(
-			modifier = Modifier
-				.background(GaiaTheme.colorScheme.background)
-				.padding(24.dp)
-		) {
-			Button(
-				onClick = {},
-				colors = ButtonDefaults.secondaryButtonColors()
-			) {
-				Text("Secondary button")
-			}
-		}
-	}
+    GaiaTheme(colorScheme = darkColorScheme()) {
+        Box(
+            modifier = Modifier
+                .background(GaiaTheme.colorScheme.background)
+                .padding(24.dp)
+        ) {
+            Button(
+                onClick = {},
+                colors = ButtonDefaults.secondaryButtonColors()
+            ) {
+                Text("Secondary button")
+            }
+        }
+    }
 }
 
 @Preview
 @Composable
 fun PrimaryButtonLightPreview() {
-	GaiaTheme(colorScheme = lightColorScheme()) {
-		Box(
-			modifier = Modifier
-				.background(GaiaTheme.colorScheme.background)
-				.padding(24.dp)
-		) {
-			Button(onClick = {}) {
-				Text("Primary button")
-			}
-		}
-	}
+    GaiaTheme(colorScheme = lightColorScheme()) {
+        Box(
+            modifier = Modifier
+                .background(GaiaTheme.colorScheme.background)
+                .padding(24.dp)
+        ) {
+            Button(onClick = {}) {
+                Text("Primary button")
+            }
+        }
+    }
 }
 
 @Preview
 @Composable
 fun SecondaryButtonLightPreview() {
-	GaiaTheme(colorScheme = lightColorScheme()) {
-		Box(
-			modifier = Modifier
-				.background(GaiaTheme.colorScheme.background)
-				.padding(24.dp)
-		) {
-			Button(
-				onClick = {},
-				colors = ButtonDefaults.secondaryButtonColors()
-			) {
-				Text("Secondary button")
-			}
-		}
-	}
+    GaiaTheme(colorScheme = lightColorScheme()) {
+        Box(
+            modifier = Modifier
+                .background(GaiaTheme.colorScheme.background)
+                .padding(24.dp)
+        ) {
+            Button(
+                onClick = {},
+                colors = ButtonDefaults.secondaryButtonColors()
+            ) {
+                Text("Secondary button")
+            }
+        }
+    }
 }

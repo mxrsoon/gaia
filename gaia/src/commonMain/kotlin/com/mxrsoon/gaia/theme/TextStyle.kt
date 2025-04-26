@@ -26,6 +26,6 @@ val LocalTextStyle = compositionLocalOf(structuralEqualityPolicy()) { DefaultTex
  */
 @Composable
 fun ProvideTextStyle(value: TextStyle, content: @Composable () -> Unit) {
-	val mergedStyle = LocalTextStyle.current.merge(value)
-	CompositionLocalProvider(LocalTextStyle provides mergedStyle, content = content)
+    val mergedStyle = LocalTextStyle.current.merge(value)
+    CompositionLocalProvider(LocalTextStyle provides mergedStyle, content = content)
 }

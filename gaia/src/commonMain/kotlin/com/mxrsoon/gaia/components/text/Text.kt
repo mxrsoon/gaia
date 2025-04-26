@@ -15,9 +15,9 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.TextUnit
+import com.mxrsoon.gaia.theme.GaiaTheme
 import com.mxrsoon.gaia.theme.LocalContentColor
 import com.mxrsoon.gaia.theme.LocalTextStyle
-import com.mxrsoon.gaia.theme.GaiaTheme
 
 /**
  * High level element that displays text and provides semantics / accessibility information.
