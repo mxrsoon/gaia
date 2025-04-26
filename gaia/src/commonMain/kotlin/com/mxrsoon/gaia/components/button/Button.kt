@@ -27,6 +27,7 @@ import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.unit.dp
 import com.mxrsoon.gaia.components.text.Text
+import com.mxrsoon.gaia.foundation.indication.ScaleIndication
 import com.mxrsoon.gaia.theme.GaiaTheme
 import com.mxrsoon.gaia.theme.LocalContentColor
 import com.mxrsoon.gaia.theme.ProvideTextStyle
@@ -62,7 +63,7 @@ fun Button(
                     enabled = enabled,
                     role = Role.Button,
                     interactionSource = interactionSource,
-                    indication = null
+                    indication = ScaleIndication
                 )
                 .then(if (border != null) Modifier.border(border, shape) else Modifier)
                 .background(containerColor, shape)
