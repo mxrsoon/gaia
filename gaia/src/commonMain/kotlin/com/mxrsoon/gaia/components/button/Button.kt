@@ -30,6 +30,8 @@ import com.mxrsoon.gaia.components.text.Text
 import com.mxrsoon.gaia.theme.GaiaTheme
 import com.mxrsoon.gaia.theme.LocalContentColor
 import com.mxrsoon.gaia.theme.ProvideTextStyle
+import com.mxrsoon.gaia.theme.darkColorScheme
+import com.mxrsoon.gaia.theme.lightColorScheme
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
@@ -192,23 +194,70 @@ data class ButtonColors(
 
 @Preview
 @Composable
-fun PrimaryButtonPreview() {
-	GaiaTheme {
-		Button(onClick = {}) {
-			Text("Primary button")
+fun PrimaryButtonDarkPreview() {
+	GaiaTheme(colorScheme = darkColorScheme()) {
+		Box(
+			modifier = Modifier
+				.background(GaiaTheme.colorScheme.background)
+				.padding(24.dp)
+		) {
+			Button(onClick = {}) {
+				Text("Primary button")
+			}
 		}
 	}
 }
 
 @Preview
 @Composable
-fun SecondaryButtonPreview() {
-	GaiaTheme {
-		Button(
-			onClick = {},
-			colors = ButtonDefaults.secondaryButtonColors()
+fun SecondaryButtonDarkPreview() {
+	GaiaTheme(colorScheme = darkColorScheme()) {
+		Box(
+			modifier = Modifier
+				.background(GaiaTheme.colorScheme.background)
+				.padding(24.dp)
 		) {
-			Text("Secondary button")
+			Button(
+				onClick = {},
+				colors = ButtonDefaults.secondaryButtonColors()
+			) {
+				Text("Secondary button")
+			}
+		}
+	}
+}
+
+@Preview
+@Composable
+fun PrimaryButtonLightPreview() {
+	GaiaTheme(colorScheme = lightColorScheme()) {
+		Box(
+			modifier = Modifier
+				.background(GaiaTheme.colorScheme.background)
+				.padding(24.dp)
+		) {
+			Button(onClick = {}) {
+				Text("Primary button")
+			}
+		}
+	}
+}
+
+@Preview
+@Composable
+fun SecondaryButtonLightPreview() {
+	GaiaTheme(colorScheme = lightColorScheme()) {
+		Box(
+			modifier = Modifier
+				.background(GaiaTheme.colorScheme.background)
+				.padding(24.dp)
+		) {
+			Button(
+				onClick = {},
+				colors = ButtonDefaults.secondaryButtonColors()
+			) {
+				Text("Secondary button")
+			}
 		}
 	}
 }

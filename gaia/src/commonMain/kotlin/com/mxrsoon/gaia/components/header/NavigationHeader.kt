@@ -34,6 +34,7 @@ import com.mxrsoon.gaia.resources.filter_alt_24px
 import com.mxrsoon.gaia.resources.menu_24px
 import com.mxrsoon.gaia.theme.GaiaTheme
 import com.mxrsoon.gaia.theme.darkColorScheme
+import com.mxrsoon.gaia.theme.lightColorScheme
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
@@ -126,7 +127,7 @@ fun NavigationHeader(
 
 @Preview
 @Composable
-private fun NavigationHeaderPreview() {
+private fun NavigationHeaderDarkPreview() {
     GaiaTheme(colorScheme = darkColorScheme()) {
         Box(Modifier.background(GaiaTheme.colorScheme.background)) {
             NavigationHeader(
@@ -139,7 +140,7 @@ private fun NavigationHeaderPreview() {
 
 @Preview
 @Composable
-private fun NavigationHeaderDividerPreview() {
+private fun NavigationHeaderDividerDarkPreview() {
     GaiaTheme(colorScheme = darkColorScheme()) {
         Box(Modifier.background(GaiaTheme.colorScheme.background)) {
             NavigationHeader(
@@ -152,7 +153,7 @@ private fun NavigationHeaderDividerPreview() {
 
 @Preview
 @Composable
-private fun NavigationHeaderBackPreview() {
+private fun NavigationHeaderBackDarkPreview() {
     GaiaTheme(colorScheme = darkColorScheme()) {
         Box(Modifier.background(GaiaTheme.colorScheme.background)) {
             NavigationHeader(
@@ -166,7 +167,7 @@ private fun NavigationHeaderBackPreview() {
 
 @Preview
 @Composable
-private fun NavigationHeaderBackDividerPreview() {
+private fun NavigationHeaderBackDividerDarkPreview() {
     GaiaTheme(colorScheme = darkColorScheme()) {
         Box(Modifier.background(GaiaTheme.colorScheme.background)) {
             NavigationHeader(
@@ -180,7 +181,7 @@ private fun NavigationHeaderBackDividerPreview() {
 
 @Preview
 @Composable
-private fun NavigationHeaderClosePreview() {
+private fun NavigationHeaderCloseDarkPreview() {
     GaiaTheme(colorScheme = darkColorScheme()) {
         Box(Modifier.background(GaiaTheme.colorScheme.background)) {
             NavigationHeader(
@@ -194,7 +195,7 @@ private fun NavigationHeaderClosePreview() {
 
 @Preview
 @Composable
-private fun NavigationHeaderCloseDividerPreview() {
+private fun NavigationHeaderCloseDividerDarkPreview() {
     GaiaTheme(colorScheme = darkColorScheme()) {
         Box(Modifier.background(GaiaTheme.colorScheme.background)) {
             NavigationHeader(
@@ -208,7 +209,7 @@ private fun NavigationHeaderCloseDividerPreview() {
 
 @Preview
 @Composable
-private fun NavigationHeaderBackClosePreview() {
+private fun NavigationHeaderBackCloseDarkPreview() {
     GaiaTheme(colorScheme = darkColorScheme()) {
         Box(Modifier.background(GaiaTheme.colorScheme.background)) {
             NavigationHeader(
@@ -223,7 +224,7 @@ private fun NavigationHeaderBackClosePreview() {
 
 @Preview
 @Composable
-private fun NavigationHeaderBackCloseDividerPreview() {
+private fun NavigationHeaderBackCloseDividerDarkPreview() {
     GaiaTheme(colorScheme = darkColorScheme()) {
         Box(Modifier.background(GaiaTheme.colorScheme.background)) {
             NavigationHeader(
@@ -238,8 +239,147 @@ private fun NavigationHeaderBackCloseDividerPreview() {
 
 @Preview
 @Composable
-private fun NavigationHeaderCustomButtonsPreview() {
+private fun NavigationHeaderCustomButtonsDarkPreview() {
     GaiaTheme(colorScheme = darkColorScheme()) {
+        Box(Modifier.background(GaiaTheme.colorScheme.background)) {
+            NavigationHeader(
+                title = "Title",
+                showDivider = false,
+                navigationButton = {
+                    IconButton(onClick = {}) {
+                        Icon(painterResource(Res.drawable.menu_24px), null)
+                    }
+                },
+                actions = {
+                    IconButton(onClick = {}) {
+                        Icon(painterResource(Res.drawable.filter_alt_24px), null)
+                    }
+
+                    IconButton(onClick = {}) {
+                        Icon(painterResource(Res.drawable.account_circle_24px), null)
+                    }
+                }
+            )
+        }
+    }
+}
+
+@Preview
+@Composable
+private fun NavigationHeaderLightPreview() {
+    GaiaTheme(colorScheme = lightColorScheme()) {
+        Box(Modifier.background(GaiaTheme.colorScheme.background)) {
+            NavigationHeader(
+                title = "Title",
+                showDivider = false
+            )
+        }
+    }
+}
+
+@Preview
+@Composable
+private fun NavigationHeaderDividerLightPreview() {
+    GaiaTheme(colorScheme = lightColorScheme()) {
+        Box(Modifier.background(GaiaTheme.colorScheme.background)) {
+            NavigationHeader(
+                title = "Title",
+                showDivider = true
+            )
+        }
+    }
+}
+
+@Preview
+@Composable
+private fun NavigationHeaderBackLightPreview() {
+    GaiaTheme(colorScheme = lightColorScheme()) {
+        Box(Modifier.background(GaiaTheme.colorScheme.background)) {
+            NavigationHeader(
+                title = "Title",
+                showDivider = false,
+                showBackButton = true
+            )
+        }
+    }
+}
+
+@Preview
+@Composable
+private fun NavigationHeaderBackDividerLightPreview() {
+    GaiaTheme(colorScheme = lightColorScheme()) {
+        Box(Modifier.background(GaiaTheme.colorScheme.background)) {
+            NavigationHeader(
+                title = "Title",
+                showDivider = true,
+                showBackButton = true
+            )
+        }
+    }
+}
+
+@Preview
+@Composable
+private fun NavigationHeaderCloseLightPreview() {
+    GaiaTheme(colorScheme = lightColorScheme()) {
+        Box(Modifier.background(GaiaTheme.colorScheme.background)) {
+            NavigationHeader(
+                title = "Title",
+                showDivider = false,
+                showCloseButton = true
+            )
+        }
+    }
+}
+
+@Preview
+@Composable
+private fun NavigationHeaderCloseDividerLightPreview() {
+    GaiaTheme(colorScheme = lightColorScheme()) {
+        Box(Modifier.background(GaiaTheme.colorScheme.background)) {
+            NavigationHeader(
+                title = "Title",
+                showDivider = true,
+                showCloseButton = true
+            )
+        }
+    }
+}
+
+@Preview
+@Composable
+private fun NavigationHeaderBackCloseLightPreview() {
+    GaiaTheme(colorScheme = lightColorScheme()) {
+        Box(Modifier.background(GaiaTheme.colorScheme.background)) {
+            NavigationHeader(
+                title = "Title",
+                showDivider = false,
+                showBackButton = true,
+                showCloseButton = true
+            )
+        }
+    }
+}
+
+@Preview
+@Composable
+private fun NavigationHeaderBackCloseDividerLightPreview() {
+    GaiaTheme(colorScheme = lightColorScheme()) {
+        Box(Modifier.background(GaiaTheme.colorScheme.background)) {
+            NavigationHeader(
+                title = "Title",
+                showDivider = true,
+                showBackButton = true,
+                showCloseButton = true
+            )
+        }
+    }
+}
+
+@Preview
+@Composable
+private fun NavigationHeaderCustomButtonsLightPreview() {
+    GaiaTheme(colorScheme = lightColorScheme()) {
         Box(Modifier.background(GaiaTheme.colorScheme.background)) {
             NavigationHeader(
                 title = "Title",

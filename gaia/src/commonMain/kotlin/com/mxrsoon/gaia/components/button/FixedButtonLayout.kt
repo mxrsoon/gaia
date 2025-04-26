@@ -20,7 +20,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.mxrsoon.gaia.components.text.Text
 import com.mxrsoon.gaia.theme.GaiaTheme
+import com.mxrsoon.gaia.theme.darkColorScheme
+import com.mxrsoon.gaia.theme.lightColorScheme
+import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
 fun FixedButtonLayout(
@@ -52,6 +56,102 @@ fun FixedButtonLayout(
                     .height(FixedButtonLayoutDefaults.DividerHeight)
                     .background(GaiaTheme.colorScheme.outlineVariant)
             )
+        }
+    }
+}
+
+@Preview
+@Composable
+private fun FixedButtonLayoutSingleButtonDarkPreview() {
+    GaiaTheme(colorScheme = darkColorScheme()) {
+        Box(Modifier.background(GaiaTheme.colorScheme.background)) {
+            FixedButtonLayout(
+                modifier = Modifier.fillMaxWidth(),
+                showDivider = false
+            ) {
+                Button(
+                    modifier = Modifier.fillMaxWidth(),
+                    onClick = {}
+                ) {
+                    Text("Primary")
+                }
+            }
+        }
+    }
+}
+
+@Preview
+@Composable
+private fun FixedButtonLayoutTwoButtonsDarkPreview() {
+    GaiaTheme(colorScheme = darkColorScheme()) {
+        Box(Modifier.background(GaiaTheme.colorScheme.background)) {
+            FixedButtonLayout(
+                modifier = Modifier.fillMaxWidth(),
+                showDivider = false
+            ) {
+                Button(
+                    modifier = Modifier.fillMaxWidth(),
+                    onClick = {},
+                    colors = ButtonDefaults.secondaryButtonColors()
+                ) {
+                    Text("Secondary")
+                }
+
+                Button(
+                    modifier = Modifier.fillMaxWidth(),
+                    onClick = {}
+                ) {
+                    Text("Primary")
+                }
+            }
+        }
+    }
+}
+
+@Preview
+@Composable
+private fun FixedButtonLayoutSingleButtonLightPreview() {
+    GaiaTheme(colorScheme = lightColorScheme()) {
+        Box(Modifier.background(GaiaTheme.colorScheme.background)) {
+            FixedButtonLayout(
+                modifier = Modifier.fillMaxWidth(),
+                showDivider = false
+            ) {
+                Button(
+                    modifier = Modifier.fillMaxWidth(),
+                    onClick = {}
+                ) {
+                    Text("Primary")
+                }
+            }
+        }
+    }
+}
+
+@Preview
+@Composable
+private fun FixedButtonLayoutTwoButtonsLightPreview() {
+    GaiaTheme(colorScheme = lightColorScheme()) {
+        Box(Modifier.background(GaiaTheme.colorScheme.background)) {
+            FixedButtonLayout(
+                modifier = Modifier.fillMaxWidth(),
+                showDivider = false
+            ) {
+                Button(
+                    modifier = Modifier.fillMaxWidth(),
+                    onClick = {},
+                    colors = ButtonDefaults.secondaryButtonColors()
+                ) {
+                    Text("Secondary")
+                }
+
+                Button(
+                    modifier = Modifier.fillMaxWidth(),
+                    onClick = {}
+                ) {
+                    Text("Primary")
+                }
+            }
         }
     }
 }

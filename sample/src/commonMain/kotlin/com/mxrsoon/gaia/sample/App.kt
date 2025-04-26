@@ -1,18 +1,12 @@
 package com.mxrsoon.gaia.sample
 
-import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.animation.fadeIn
-import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.background
 import androidx.compose.foundation.isSystemInDarkTheme
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.safeDrawingPadding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.runtime.Composable
@@ -23,7 +17,6 @@ import com.mxrsoon.gaia.components.button.Button
 import com.mxrsoon.gaia.components.button.ButtonDefaults
 import com.mxrsoon.gaia.components.button.FixedButtonLayout
 import com.mxrsoon.gaia.components.header.NavigationHeader
-import com.mxrsoon.gaia.components.header.NavigationHeaderDefaults
 import com.mxrsoon.gaia.components.text.Text
 import com.mxrsoon.gaia.theme.GaiaTheme
 import com.mxrsoon.gaia.theme.darkColorScheme
