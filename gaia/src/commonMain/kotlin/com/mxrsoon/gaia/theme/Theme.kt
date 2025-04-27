@@ -1,5 +1,6 @@
 package com.mxrsoon.gaia.theme
 
+import androidx.compose.foundation.LocalIndication
 import androidx.compose.foundation.text.selection.LocalTextSelectionColors
 import androidx.compose.foundation.text.selection.TextSelectionColors
 import androidx.compose.runtime.Composable
@@ -9,6 +10,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
+import com.mxrsoon.gaia.foundation.indication.tintAndScaleIndication
 import com.mxrsoon.gaia.resources.Inter_Black
 import com.mxrsoon.gaia.resources.Inter_BlackItalic
 import com.mxrsoon.gaia.resources.Inter_Bold
@@ -52,12 +54,14 @@ fun GaiaTheme(
     }
 
     val selectionColors = rememberTextSelectionColors(rememberedColorScheme)
+    val indication = tintAndScaleIndication()
 
     CompositionLocalProvider(
         LocalColorScheme provides rememberedColorScheme,
         LocalTextSelectionColors provides selectionColors,
         LocalTypography provides typography,
-        LocalContentColor provides rememberedColorScheme.onBackground
+        LocalContentColor provides rememberedColorScheme.onBackground,
+        LocalIndication provides indication
     ) {
         ProvideTextStyle(
             value = typography.bodyLarge,

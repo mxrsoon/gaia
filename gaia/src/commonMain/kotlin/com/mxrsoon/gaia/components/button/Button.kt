@@ -24,10 +24,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
+import androidx.compose.ui.input.pointer.PointerIcon
+import androidx.compose.ui.input.pointer.pointerHoverIcon
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.unit.dp
 import com.mxrsoon.gaia.components.text.Text
-import com.mxrsoon.gaia.foundation.indication.ScaleIndication
+import com.mxrsoon.gaia.foundation.indication.tintAndScaleIndication
 import com.mxrsoon.gaia.theme.GaiaTheme
 import com.mxrsoon.gaia.theme.LocalContentColor
 import com.mxrsoon.gaia.theme.ProvideTextStyle
@@ -57,17 +59,18 @@ fun Button(
                     minWidth = ButtonDefaults.MinWidth,
                     minHeight = ButtonDefaults.MinHeight
                 )
-                .clip(shape)
                 .clickable(
                     onClick = onClick,
                     enabled = enabled,
                     role = Role.Button,
                     interactionSource = interactionSource,
-                    indication = ScaleIndication
+                    indication = tintAndScaleIndication(shape)
                 )
+                .pointerHoverIcon(PointerIcon.Hand)
                 .then(if (border != null) Modifier.border(border, shape) else Modifier)
                 .background(containerColor, shape)
-                .padding(contentPadding),
+                .padding(contentPadding)
+                .clip(shape),
             contentAlignment = Alignment.Center
         ) {
             ProvideTextStyle(value = GaiaTheme.typography.labelLarge) {
