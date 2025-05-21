@@ -28,7 +28,9 @@ import androidx.compose.ui.node.requireLayoutDirection
 import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.toSize
 import com.mxrsoon.gaia.theme.LocalContentColor
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.joinAll
 import kotlinx.coroutines.launch
 
 @Stable
@@ -147,14 +149,17 @@ private abstract class BaseTintAndScaleIndicationNode(
     private var isHovered = false
     private var isPressed = false
     private var isDragged = false
+    private var pressAnimationJob: Job? = null
+
+    private val isAnimatingToPressed: Boolean
+        get() = pressAnimationJob?.isActive == true
 
     override fun onAttach() {
         coroutineScope.launch {
             interactionSource.interactions.collectLatest { interaction ->
                 when (interaction) {
                     is PressInteraction.Press -> { isPressed = true }
-                    is PressInteraction.Release -> { isPressed = false }
-                    is PressInteraction.Cancel -> { isPressed = false }
+                    is PressInteraction.Release, is PressInteraction.Cancel -> { isPressed = false }
                     is HoverInteraction.Enter -> { isHovered = true }
                     is HoverInteraction.Exit -> { isHovered = false }
                     is DragInteraction.Start -> { isDragged = true }
@@ -170,37 +175,57 @@ private abstract class BaseTintAndScaleIndicationNode(
     }
 
     private fun updateAnimation() {
-        when {
-            isDragged -> animateToDragged()
-            isPressed -> animateToPressed()
-            isFocused -> animateToFocused()
-            isHovered -> animateToHovered()
-            else -> animateToResting()
+        coroutineScope.launch {
+            when {
+                isAnimatingToPressed -> { /* no-op */ }
+                isDragged -> animateToDragged()
+                isPressed -> startPressedAnimation()
+                isFocused -> animateToFocused()
+                isHovered -> animateToHovered()
+                else -> animateToResting()
+            }
         }
     }
 
-    private fun animateToDragged() {
-        coroutineScope.launch { animatedScalePercent.animateTo(0.97f, spring()) }
-        coroutineScope.launch { animatedAlpha.animateTo(0.16f, spring()) }
+    private fun startPressedAnimation() {
+        pressAnimationJob = coroutineScope.launch {
+            animateToPressed()
+            updateAnimation()
+        }
     }
 
-    private fun animateToPressed() {
-        coroutineScope.launch { animatedScalePercent.animateTo(0.98f, spring()) }
-        coroutineScope.launch { animatedAlpha.animateTo(0.12f, spring()) }
+    private suspend fun animateToPressed() {
+        joinAll(
+            coroutineScope.launch { animatedScalePercent.animateTo(0.97f, spring()) },
+            coroutineScope.launch { animatedAlpha.animateTo(0.12f, spring()) }
+        )
     }
 
-    private fun animateToFocused() {
-        coroutineScope.launch { animatedScalePercent.animateTo(0.98f, spring()) }
-        coroutineScope.launch { animatedAlpha.animateTo(0.12f, spring()) }
+    private suspend fun animateToDragged() {
+        joinAll(
+            coroutineScope.launch { animatedScalePercent.animateTo(0.96f, spring()) },
+            coroutineScope.launch { animatedAlpha.animateTo(0.16f, spring()) }
+        )
     }
 
-    private fun animateToHovered() {
-        coroutineScope.launch { animatedScalePercent.animateTo(0.99f, spring()) }
-        coroutineScope.launch { animatedAlpha.animateTo(0.08f, spring()) }
+    private suspend fun animateToFocused() {
+        joinAll(
+            coroutineScope.launch { animatedScalePercent.animateTo(0.99f, spring()) },
+            coroutineScope.launch { animatedAlpha.animateTo(0.12f, spring()) }
+        )
     }
 
-    private fun animateToResting() {
-        coroutineScope.launch { animatedScalePercent.animateTo(1f, spring()) }
-        coroutineScope.launch { animatedAlpha.animateTo(0f, spring()) }
+    private suspend fun animateToHovered() {
+        joinAll(
+            coroutineScope.launch { animatedScalePercent.animateTo(0.99f, spring()) },
+            coroutineScope.launch { animatedAlpha.animateTo(0.08f, spring()) }
+        )
+    }
+
+    private suspend fun animateToResting() {
+        joinAll(
+            coroutineScope.launch { animatedScalePercent.animateTo(1f, spring()) },
+            coroutineScope.launch { animatedAlpha.animateTo(0f, spring()) }
+        )
     }
 }
